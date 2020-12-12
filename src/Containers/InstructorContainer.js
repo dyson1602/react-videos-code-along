@@ -3,24 +3,23 @@ import Instructor from '../Components/Instructor'
 import Form from '../Components/Form'
 import Search from '../Components/Search'
 
-
 class InstructorContainer extends React.Component {
 
   state = {
-    //original array being maintained
-    instructors: [{ id: 1, name: "Steven", mod: 3 }, { id: 2, name: "Caryn", mod: 1 },
-    { id: 3, name: "Greg", mod: 2 }],
-    //a key to maintain the search value
+    instructors: [],
+    instructor: {},
     searchValue: ""
+  }
+  searchHandler = (e) => {
+    this.setState({ searchValue: e.target.value })
+  }
+  
+  componentDidMount() {
+    fetch("http://localhost:4000/instructors").then(resp => resp.json()).then(data => this.setState({ instructors: data}))
   }
 
   filteredInstructors = () => {
-    return this.state.instructors.filter(inst => inst.name.toLocaleLowerCase().
-      includes(this.state.searchValue))
-  }
-
-  searchHandler = (e) => {
-    this.setState({ searchValue: e.target.value })
+    return this.state.instructors.filter(inst => inst.name.toLocaleLowerCase().includes(this.state.searchValue.toLocaleLowerCase()))
   }
 
   submitHandler = (newInstructor) => {
@@ -29,14 +28,18 @@ class InstructorContainer extends React.Component {
   }
 
   render() {
-    let instructors = this.filteredInstructors().map(instructorObj => <Instructor key={instructorObj.
-      id} instructor={instructorObj} appClickHandler={this.props.appClickHandler} />)
+    let instructors = this.filteredInstructors().map(instructorObj => <Instructor key={instructorObj
+      .id} instructor={instructorObj} appClickHandler={this.props.appClickHandler} />)
     return (
       <>
-        <Form submitHandler={this.submitHandler} />
-        <br></br>
-        <Search searchValue={this.state.searchValue} searchHandler={this.searchHandler} />
-        { instructors}
+        {this.state.instructors.length === 0 ? <h1>LOADING INSTRUCTORS</h1> :
+          <>
+            <Form submitHandler={this.submitHandler} />
+            <br></br>
+            <Search searchValue={this.state.searchValue} searchHandler={this.searchHandler} />
+            { instructors}
+          </>
+        }
       </>
     )
   }

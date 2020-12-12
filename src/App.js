@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import Header from './Components/Header'
 import InstructorContainer from './Containers/InstructorContainer'
@@ -10,7 +10,7 @@ class App extends React.Component {
   state = { instructor: {} }
 
   appClickHandler = (instructorObj) => {
-    console.log("%c In App now", 'color: red', instructorObj)
+    // console.log("%c In App now", 'color: red', instructorObj)
     this.setState({ instructor: instructorObj })
   }
 
