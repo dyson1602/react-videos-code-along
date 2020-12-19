@@ -1,23 +1,20 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 
 
 class Instructor extends React.Component {
 
   instructorClickHandler = () => {
-    if(this.props.appClickHandler){this.props.appClickHandler(this.props.instructor)}
-  }
-
-  componentDidUpdate() {
-    console.log("CDU in instructor")
-  }
-
-  componentWillUnmount(){
-    console.log("unmounting instructor")
+    if (this.props.appClickHandler) { this.props.appClickHandler(this.props.instructor) }
   }
 
   render() {
-    return <p onClick={this.instructorClickHandler}>{this.props.instructor.name}</p>
+    return (
+      <NavLink to={`/instructors/${this.props.instructor.id}`}>
+        <p onClick={this.instructorClickHandler}>{this.props.instructor.name}</p>
+      </NavLink>
+    )
   }
 
 }

@@ -10,15 +10,7 @@ class Form extends React.Component {
   }
 
   changeHandler = (e) => {
-
-    //ES6 functionality
     this.setState({ [e.target.name]: e.target.value})
-
-    // if (e.target.name === "name"){
-    //   this.setState({ name: e.target.value })
-    // } else if (e.target.name === "mod") {
-    //   this.setState({ mod: e.target.value})
-    // }
   }
 
   render() {
